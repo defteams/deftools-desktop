@@ -2,7 +2,7 @@
 
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, Menu } from 'electron';
 import * as path from 'path';
 import JSONStream from 'pixl-json-stream';
 
@@ -73,6 +73,53 @@ const listenSocket = () => {
   });
 }
 
+/**
+ * Setup app menus
+ * @return {[type]} [description]
+ */
+ const setApplicationMenu = () => {
+  let template = [
+  {
+    label: "Settings",
+    submenu: [
+      {
+        label: 'Settings',
+        click() {
+          mainWindow.webContents.send('deftools', 'open-settings', null);
+        }
+      },
+      { type: 'separator' },
+      {
+        label: `About`,
+        role: 'about'
+      }
+    ]
+  },
+  {
+    label: "Edit",
+    submenu: [
+        {
+          label: "Clear Logs",
+          accelerator: "Ctrl+C",
+          click() {
+            mainWindow.webContents.send('deftlog', 'clear', null);
+          }
+        },
+        { label: "Undo", accelerator: "CmdOrCtrl+Z", selector: "undo:" },
+        { label: "Redo", accelerator: "Shift+CmdOrCtrl+Z", selector: "redo:" },
+        { type: "separator" },
+        { label: "Cut", accelerator: "CmdOrCtrl+X", selector: "cut:" },
+        { label: "Copy", accelerator: "CmdOrCtrl+C", selector: "copy:" },
+        { label: "Paste", accelerator: "CmdOrCtrl+V", selector: "paste:" },
+        { label: "Select All", accelerator: "CmdOrCtrl+A", selector: "selectAll:" }
+    ]
+  }
+  ];
+
+  const menu = Menu.buildFromTemplate(template);
+  Menu.setApplicationMenu(menu);
+ };
+
 const createMainWindow = () => {
   mainWindow = new BrowserWindow({
     title: 'Deftools',
@@ -127,6 +174,7 @@ app.on('activate', () => {
 // create main BrowserWindow when electron is ready
 app.on('ready', () => {
   mainWindow = createMainWindow();
+  setApplicationMenu();
 
   if (isDev) {
     const { default: installExtension, REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } = require('electron-devtools-installer');
