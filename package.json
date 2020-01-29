@@ -1,0 +1,79 @@
+{
+  "name": "deftools",
+  "version": "1.0.0",
+  "description": "Simple electron boilerplate with webpack, react and react hot loader",
+  "author": "Lafif Astahdziq <hello@lafif.me> (https://lafif.me/)",
+  "main": "app/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "rimraf app/* && webpack-dev-server --hot --env development",
+    "prod": "rimraf app/* && webpack --env production && npm run start",
+    "dist": "rimraf dist/* && webpack --env production && electron-builder"
+  },
+  "build": {
+    "appId": "com.defteams.deftools",
+    "directories": {
+      "buildResources": "resources"
+    },
+    "files": [
+      "app/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "publish": null,
+    "dmg": {
+      "contents": [
+        {
+          "x": 100,
+          "y": 200
+        },
+        {
+          "x": 400,
+          "y": 200,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ],
+      "window": {
+        "width": 500,
+        "height": 400
+      }
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    },
+    "win": {
+      "target": "NSIS"
+    }
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@hot-loader/react-dom": "^16.11.0",
+    "pixl-json-stream": "^1.0.6",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-hot-loader": "^4.12.18",
+    "react-json-view": "^1.19.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.7.7",
+    "@babel/preset-env": "^7.7.7",
+    "@babel/preset-react": "^7.7.4",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.4.2",
+    "electron": "^7.1.8",
+    "electron-builder": "^21.2.0",
+    "electron-devtools-installer": "^2.2.4",
+    "html-webpack-plugin": "^3.2.0",
+    "node-sass": "^4.13.0",
+    "sass-loader": "^8.0.1",
+    "style-loader": "^1.1.2",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.1",
+    "webpack-merge": "^4.2.2"
+  }
+}

@@ -1,0 +1,31 @@
+body {
+    margin: 0;
+    background-color: rgb(59, 50, 40);
+}
+
+#app {
+    font-family: monospace;
+	min-height: calc(100vh - 20px);
+    padding: 10px;
+    color: rgb(245, 238, 235);
+
+    .log {
+    	font-family: monospace;
+
+    	hr {
+    		opacity: 0.2;
+    	}
+
+    	> div {
+    		padding: 1px 0;
+    	}
+    }
+}
+
+#connection-status {
+    position: fixed;
+    bottom: 5px;
+    right: 5px;
+    text-transform: capitalize;
+    color: rgb(138, 179, 181);
+}
